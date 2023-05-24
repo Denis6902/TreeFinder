@@ -1,9 +1,11 @@
 ﻿// load data
 
+// Get data
 Console.WriteLine("Enter data: (empty input = prefilled data)");
 string data = Console.ReadLine();
 int availableTrees = 0;
 
+// If no data is entered, use prefilled data
 if (data.Length == 0)
 {
     data =
@@ -12,29 +14,37 @@ if (data.Length == 0)
 
 // create array
 string[,] map = new string[GetArrayLength(data), GetArrayLength(data)];
+
+// fill array with zeroes
 FillArrayWithZeroes(map);
+
+// load map
 LoadMap(data, map);
+
+// write map
 WriteMap(map, ref availableTrees);
 
+// fill array with zeroes
 void FillArrayWithZeroes(string[,] map)
 {
     for (int i = 0; i < map.GetLength(0); i++)
     {
         for (int j = 0; j < map.GetLength(1); j++)
         {
+            // fill array with zeroes
             map[i, j] = "0";
         }
     }
 }
 
+// print available trees
 Console.WriteLine("Available trees: " + availableTrees);
 Console.ReadKey();
 
-int GetArrayLength(string data)
-{
-    return (int) Math.Round(Math.Sqrt(data.Length));
-}
+// get array length
+int GetArrayLength(string data) => (int) Math.Round(Math.Sqrt(data.Length));
 
+// make visible some text
 void MakeVisible(string visibleText)
 {
     Console.BackgroundColor = ConsoleColor.Blue;
@@ -42,17 +52,21 @@ void MakeVisible(string visibleText)
     Console.BackgroundColor = ConsoleColor.Black;
 }
 
+// load map
 void LoadMap(string data, string[,] map)
 {
+    // set count to zero
     int count = 0;
 
-// foreach map element
+    // foreach map element
     for (int i = 0; i < map.GetLength(0); i++)
     {
         for (int j = 0; j < map.GetLength(1); j++)
         {
+            // if not reached end of data 
             if (count != data.Length)
             {
+                // set number from data to map array
                 map[i, j] = data[count].ToString();
                 count++;
             }
@@ -60,17 +74,19 @@ void LoadMap(string data, string[,] map)
     }
 }
 
+// write map
 void WriteMap(string[,] map, ref int availableTrees)
 {
     for (int i = 0; i < map.GetLength(0); i++)
     {
         for (int j = 0; j < map.GetLength(1); j++)
         {
+            // if visible - make visible
             if (IsVisible(map, i, j, ref availableTrees))
             {
                 MakeVisible(map[i, j]);
             }
-            else
+            else // else - just write
             {
                 Console.Write(map[i, j] + " ");
             }
@@ -80,10 +96,13 @@ void WriteMap(string[,] map, ref int availableTrees)
     }
 }
 
+// is visible
 bool IsVisible(string[,] map, int i, int j, ref int availableTrees)
 {
+    // get current number
     int current = int.Parse(map[i, j]);
 
+    // get previous and next numbers
     int previousColumn = 0;
     int previousRow = 0;
     int nextColumn = 0;
@@ -113,12 +132,15 @@ bool IsVisible(string[,] map, int i, int j, ref int availableTrees)
         nextRow = int.Parse(map[i + 1, j]);
     }
 
+    // if current number is bigger than previous or next - make visible
     bool isAvailable = previousColumn < current || previousRow < current || nextColumn < current || nextRow < current;
 
+    // if available - increment available trees
     if (isAvailable)
     {
         availableTrees++;
     }
 
+    // return is available
     return isAvailable;
 }
