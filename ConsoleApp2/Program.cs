@@ -15,11 +15,11 @@ TreeFinder treeFinder = new TreeFinder(data);
 // fill array with zeroes
 treeFinder.FillArrayWithZeroes();
 
-// load map
-treeFinder.LoadMap();
+// load trees
+treeFinder.LoadTrees();
 
-// write map
-treeFinder.WriteMap();
+// write trees
+treeFinder.WriteTrees();
 
 // print available trees 
 Console.WriteLine($"Available trees: {treeFinder.AvailableTrees}");

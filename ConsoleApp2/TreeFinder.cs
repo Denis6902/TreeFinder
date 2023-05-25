@@ -4,24 +4,24 @@ class TreeFinder
 {
     public string Data { get; set; }
     public int AvailableTrees { get; set; }
-    public string[,] Map { get; set; }
+    public string[,] Trees { get; set; }
 
     public TreeFinder(string data)
     {
         Data = data;
-        Map = new string[GetArrayLength(Data), GetArrayLength(Data)];
+        Trees = new string[GetArrayLength(Data), GetArrayLength(Data)];
     }
 
     // fill array with zeroes
     public void FillArrayWithZeroes()
     {
-        // foreach map element and fill with zeroes
-        for (int row = 0; row < Map.GetLength(0); row++)
+        // foreach trees element and fill with zeroes
+        for (int row = 0; row < Trees.GetLength(0); row++)
         {
-            for (int column = 0; column < Map.GetLength(1); column++)
+            for (int column = 0; column < Trees.GetLength(1); column++)
             {
                 // fill array with zeroes
-                Map[row, column] = "0";
+                Trees[row, column] = "0";
             }
         }
     }
@@ -37,16 +37,16 @@ class TreeFinder
         Console.BackgroundColor = ConsoleColor.Black;
     }
 
-    // load map from data
-    public void LoadMap()
+    // load trees from data
+    public void LoadTrees()
     {
         // set count to zero
         int count = 0;
 
-        // foreach map element
-        for (int row = 0; row < Map.GetLength(0); row++)
+        // foreach trees element
+        for (int row = 0; row < Trees.GetLength(0); row++)
         {
-            for (int column = 0; column < Map.GetLength(1); column++)
+            for (int column = 0; column < Trees.GetLength(1); column++)
             {
                 // if reached end of data 
                 if (count == Data.Length)
@@ -55,29 +55,29 @@ class TreeFinder
                     break;
                 }
 
-                // set number from data to map array
-                Map[row, column] = Data[count].ToString();
+                // set number from data to trees array
+                Trees[row, column] = Data[count].ToString();
                 count++;
             }
         }
     }
 
-    // write map to console
-    public void WriteMap()
+    // write trees to console
+    public void WriteTrees()
     {
-        // foreach map element
-        for (int row = 0; row < Map.GetLength(0); row++)
+        // foreach trees element
+        for (int row = 0; row < Trees.GetLength(0); row++)
         {
-            for (int column = 0; column < Map.GetLength(1); column++)
+            for (int column = 0; column < Trees.GetLength(1); column++)
             {
                 // if visible - make visible
                 if (IsVisible(row, column))
                 {
-                    MakeVisible(Map[row, column]);
+                    MakeVisible(Trees[row, column]);
                 }
                 else // else - just write
                 {
-                    Console.Write(Map[row, column]);
+                    Console.Write(Trees[row, column]);
                 }
             }
 
@@ -95,7 +95,7 @@ class TreeFinder
         {
             for (int i = column - 1; i >= 0; i--) // all previous columns
             {
-                if (int.Parse(Map[row, i]) >= current) // if previous column is bigger or equal - not visible
+                if (int.Parse(Trees[row, i]) >= current) // if previous column is bigger or equal - not visible
                 {
                     isLowestInLeft = false;
                 }
@@ -111,11 +111,11 @@ class TreeFinder
         bool isLowestInRight = true;
 
         // next columns check
-        if (column != Map.GetLength(1)) // check if not last column
+        if (column != Trees.GetLength(1)) // check if not last column
         {
-            for (int i = column + 1; i < Map.GetLength(1); i++) // all next columns
+            for (int i = column + 1; i < Trees.GetLength(1); i++) // all next columns
             {
-                if (int.Parse(Map[row, i]) >= current) // if next column is bigger or equal - not visible
+                if (int.Parse(Trees[row, i]) >= current) // if next column is bigger or equal - not visible
                 {
                     isLowestInRight = false;
                 }
@@ -135,7 +135,7 @@ class TreeFinder
         {
             for (int i = row - 1; i >= 0; i--) // all previous rows
             {
-                if (int.Parse(Map[i, column]) >= current) // if previous row is bigger or equal - not visible
+                if (int.Parse(Trees[i, column]) >= current) // if previous row is bigger or equal - not visible
                 {
                     isLowestInTop = false;
                 }
@@ -153,9 +153,9 @@ class TreeFinder
         // next rows check
         if (row != 0)
         {
-            for (int i = row + 1; i < Map.GetLength(0); i++) // all next rows
+            for (int i = row + 1; i < Trees.GetLength(0); i++) // all next rows
             {
-                if (int.Parse(Map[i, column]) >= current) // if next row is bigger or equal - not visible
+                if (int.Parse(Trees[i, column]) >= current) // if next row is bigger or equal - not visible
                 {
                     isLowestInBottom = false;
                 }
@@ -168,7 +168,7 @@ class TreeFinder
     public bool IsVisible(int row, int column)
     {
         // get current number
-        int current = int.Parse(Map[row, column]);
+        int current = int.Parse(Trees[row, column]);
 
         // check if lowest in left, right, top, bottom
         bool isLowestInLeft = CheckLowestInLeft(row, column, current);
