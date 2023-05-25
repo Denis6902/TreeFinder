@@ -1,4 +1,4 @@
-﻿// Get data
+﻿using System;
 
 Console.WriteLine("Enter data: (empty input = prefilled data)");
 string data = Console.ReadLine() ?? ""; // if input is null, use empty string
