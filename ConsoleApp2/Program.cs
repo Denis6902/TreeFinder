@@ -23,3 +23,4 @@ treeFinder.WriteTrees();
 
 // print available trees 
 Console.WriteLine($"Available trees: {treeFinder.AvailableTrees}");
+Console.ReadKey();
