@@ -85,10 +85,10 @@ class TreeFinder
         int current = int.Parse(Map[i, j]);
 
         // get previous and next numbers
-        int previousColumn = 0;
-        int previousRow = 0;
-        int nextColumn = 0;
-        int nextRow = 0;
+        int previousColumn = -1; // -1 because 0 is lowest valid number
+        int previousRow = -1;
+        int nextColumn = -1;
+        int nextRow = -1;
 
         // previous column
         if (j != 0) // check if not first column
