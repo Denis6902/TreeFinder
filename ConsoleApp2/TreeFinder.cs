@@ -64,7 +64,7 @@ class TreeFinder
             for (int j = 0; j < Map.GetLength(1); j++)
             {
                 // if visible - make visible
-                if (IsVisible(i, j))
+                if (IsVisibleRemake(i, j))
                 {
                     MakeVisible(Map[i, j]);
                 }
@@ -125,6 +125,47 @@ class TreeFinder
         }
 
         // return is available
+        return isAvailable;
+    }
+
+    public bool IsVisibleRemake(int i, int j)
+    {
+        // get current number
+        int current = int.Parse(Map[i, j]);
+        
+        bool isLowestInPreviousColumn = false;
+        bool isLowestInPreviousRow = false;
+        bool isLowestInNextColumn = false;
+        bool isLowestInNextRow = false;
+
+        // previous column
+        if (j != 0) // check if not first column
+        {
+            for (int k = j; k >= 0; k--) // all previous columns
+            {
+                if(int.Parse(Map[i,k]) < current)
+                {
+                    isLowestInPreviousColumn = true;
+                }
+                else
+                {
+                    isLowestInPreviousColumn = false;
+                }
+            }
+        }
+        else
+        {
+            isLowestInPreviousColumn = true; // if is first column - visible
+        }
+        
+        bool isAvailable = isLowestInPreviousColumn || isLowestInPreviousRow || isLowestInNextColumn || isLowestInNextRow;;
+        
+        // if available - increment available trees
+        if (isAvailable)
+        {
+            AvailableTrees++;
+        }
+        
         return isAvailable;
     }
 }
