@@ -48,7 +48,7 @@ int GetArrayLength(string data) => (int) Math.Round(Math.Sqrt(data.Length));
 void MakeVisible(string visibleText)
 {
     Console.BackgroundColor = ConsoleColor.Blue;
-    Console.Write(visibleText + " ");
+    Console.Write(visibleText);
     Console.BackgroundColor = ConsoleColor.Black;
 }
 
@@ -88,7 +88,7 @@ void WriteMap(string[,] map, ref int availableTrees)
             }
             else // else - just write
             {
-                Console.Write(map[i, j] + " ");
+                Console.Write(map[i, j]);
             }
         }
 
