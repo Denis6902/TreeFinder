@@ -22,4 +22,4 @@ treeFinder.LoadMap();
 treeFinder.WriteMap();
 
 // print available trees 
-Console.WriteLine("Available trees: " + treeFinder.AvailableTrees);
+Console.WriteLine($"Available trees: {treeFinder.AvailableTrees}");

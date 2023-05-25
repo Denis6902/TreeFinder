@@ -15,6 +15,7 @@ class TreeFinder
     // fill array with zeroes
     public void FillArrayWithZeroes()
     {
+        // foreach map element and fill with zeroes
         for (int row = 0; row < Map.GetLength(0); row++)
         {
             for (int column = 0; column < Map.GetLength(1); column++)
@@ -25,7 +26,7 @@ class TreeFinder
         }
     }
 
-    // get array length
+    // get array length (square root of data length)
     public int GetArrayLength(string data) => (int) Math.Round(Math.Sqrt(data.Length));
 
     // make visible some text
@@ -36,7 +37,7 @@ class TreeFinder
         Console.BackgroundColor = ConsoleColor.Black;
     }
 
-    // load map
+    // load map from data
     public void LoadMap()
     {
         // set count to zero
@@ -47,20 +48,24 @@ class TreeFinder
         {
             for (int column = 0; column < Map.GetLength(1); column++)
             {
-                // if not reached end of data 
-                if (count != Data.Length)
+                // if reached end of data 
+                if (count == Data.Length)
                 {
-                    // set number from data to map array
-                    Map[row, column] = Data[count].ToString();
-                    count++;
+                    // end loop
+                    break;
                 }
+
+                // set number from data to map array
+                Map[row, column] = Data[count].ToString();
+                count++;
             }
         }
     }
 
-    // write map
+    // write map to console
     public void WriteMap()
     {
+        // foreach map element
         for (int row = 0; row < Map.GetLength(0); row++)
         {
             for (int column = 0; column < Map.GetLength(1); column++)
@@ -80,7 +85,7 @@ class TreeFinder
         }
     }
 
-    // check previous columns
+    // check previous columns (in left)
     public bool CheckLowestInLeft(int row, int column, int current)
     {
         bool isLowestInLeft = true;
@@ -96,15 +101,12 @@ class TreeFinder
                 }
             }
         }
-        else
-        {
-            isLowestInLeft = true; // if is first column - visible
-        }
 
         return isLowestInLeft;
     }
 
-    public bool CheckLowestInTopRight(int row, int column, int current)
+    // check next columns (in right)
+    public bool CheckLowestInRight(int row, int column, int current)
     {
         bool isLowestInRight = true;
 
@@ -119,14 +121,11 @@ class TreeFinder
                 }
             }
         }
-        else
-        {
-            isLowestInRight = true; // if is last column - visible
-        }
 
         return isLowestInRight;
     }
 
+    // check previous rows (in top)
     public bool CheckLowestInTop(int row, int column, int current)
     {
         bool isLowestInTop = true;
@@ -142,14 +141,11 @@ class TreeFinder
                 }
             }
         }
-        else
-        {
-            isLowestInTop = true; // if is first column - visible
-        }
 
         return isLowestInTop;
     }
 
+    // check next rows (in bottom)
     public bool CheckLowestInBottom(int row, int column, int current)
     {
         bool isLowestInBottom = true;
@@ -165,10 +161,6 @@ class TreeFinder
                 }
             }
         }
-        else
-        {
-            isLowestInBottom = true; // if is last column - visible
-        }
 
         return isLowestInBottom;
     }
@@ -178,12 +170,14 @@ class TreeFinder
         // get current number
         int current = int.Parse(Map[row, column]);
 
+        // check if lowest in left, right, top, bottom
         bool isLowestInLeft = CheckLowestInLeft(row, column, current);
-        bool isLowestInRight = CheckLowestInTopRight(row, column, current);
+        bool isLowestInRight = CheckLowestInRight(row, column, current);
         bool isLowestInTop = CheckLowestInTop(row, column, current);
         bool isLowestInBottom = CheckLowestInBottom(row, column, current);
 
 
+        // if lowest in left, right, top, bottom - available
         bool isAvailable = isLowestInLeft || isLowestInRight || isLowestInTop || isLowestInBottom;
 
         // if available - increment available trees
@@ -192,6 +186,7 @@ class TreeFinder
             AvailableTrees++;
         }
 
+        // return is available
         return isAvailable;
     }
 }
