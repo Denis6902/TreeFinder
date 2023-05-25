@@ -2,7 +2,7 @@
 
 // Get data
 Console.WriteLine("Enter data: (empty input = prefilled data)");
-string data = Console.ReadLine();
+string data = Console.ReadLine() ?? ""; // if input is null, use empty string
 int availableTrees = 0;
 
 // If no data is entered, use prefilled data
@@ -109,25 +109,25 @@ bool IsVisible(string[,] map, int i, int j, ref int availableTrees)
     int nextRow = 0;
 
     // previous column
-    if (j != 0 && i != 0)
+    if (j != 0) // check if not first column
     {
         previousColumn = int.Parse(map[i, j - 1]);
     }
 
     // previous row
-    if (i != 0 && j != 0)
+    if (i != 0) // check if not first row
     {
         previousRow = int.Parse(map[i - 1, j]);
     }
 
     // next column
-    if (j < map.GetLength(1) - 1 && i < map.GetLength(0) - 1)
+    if (j < map.GetLength(1) - 1) // check if not last column
     {
         nextColumn = int.Parse(map[i, j + 1]);
     }
 
     // next row
-    if (i < map.GetLength(0) - 1 && j < map.GetLength(1) - 1)
+    if (i < map.GetLength(0) - 1) // check if not last row
     {
         nextRow = int.Parse(map[i + 1, j]);
     }
