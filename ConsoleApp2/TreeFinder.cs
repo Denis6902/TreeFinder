@@ -25,6 +25,8 @@ class TreeFinder
             }
         }
     }
+    
+    public void WriteResults() => Console.WriteLine($"Celkově viditelných: {AvailableTrees}, na okraji {GetArrayLength(Data)} a ve vnitřku {AvailableTrees - GetArrayLength(Data)}");
 
     // get array length (square root of data length)
     private int GetArrayLength(string data)

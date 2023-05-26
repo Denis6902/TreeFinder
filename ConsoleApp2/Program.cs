@@ -21,6 +21,6 @@ treeFinder.LoadTrees();
 // write trees
 treeFinder.WriteTrees();
 
-// print available trees 
-Console.WriteLine($"Available trees: {treeFinder.AvailableTrees}");
+// write results 
+treeFinder.WriteResults();
 Console.ReadKey();
