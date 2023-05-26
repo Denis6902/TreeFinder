@@ -2,9 +2,9 @@ using System;
 
 class TreeFinder
 {
-    public string Data { get; set; }
+    private string Data { get; set; }
     public int AvailableTrees { get; set; }
-    public string[,] Trees { get; set; }
+    private string[,] Trees { get; set; }
 
     public TreeFinder(string data)
     {
@@ -27,10 +27,10 @@ class TreeFinder
     }
 
     // get array length (square root of data length)
-    public int GetArrayLength(string data) => (int) Math.Round(Math.Sqrt(data.Length));
+    private int GetArrayLength(string data) => (int) Math.Round(Math.Sqrt(data.Length));
 
     // make visible some text
-    public void MakeVisible(string visibleText)
+    private void MakeVisible(string visibleText)
     {
         Console.BackgroundColor = ConsoleColor.Blue;
         Console.Write(visibleText);
@@ -86,7 +86,7 @@ class TreeFinder
     }
 
     // check previous columns (in left)
-    public bool CheckLowestInLeft(int row, int column, int current)
+    private bool CheckLowestInLeft(int row, int column, int current)
     {
         bool isLowestInLeft = true;
 
@@ -107,7 +107,7 @@ class TreeFinder
     }
 
     // check next columns (in right)
-    public bool CheckLowestInRight(int row, int column, int current)
+    private bool CheckLowestInRight(int row, int column, int current)
     {
         bool isLowestInRight = true;
 
@@ -128,7 +128,7 @@ class TreeFinder
     }
 
     // check previous rows (in top)
-    public bool CheckLowestInTop(int row, int column, int current)
+    private bool CheckLowestInTop(int row, int column, int current)
     {
         bool isLowestInTop = true;
 
@@ -149,7 +149,7 @@ class TreeFinder
     }
 
     // check next rows (in bottom)
-    public bool CheckLowestInBottom(int row, int column, int current)
+    private bool CheckLowestInBottom(int row, int column, int current)
     {
         bool isLowestInBottom = true;
 
@@ -169,14 +169,14 @@ class TreeFinder
         return isLowestInBottom;
     }
 
-    public bool IsVisible(int row, int column)
+    private bool IsVisible(int row, int column)
     {
         // get current number
         int current = int.Parse(Trees[row, column]);
 
         // check if lowest in left, right, top, bottom
-        
-        
+
+
         bool isLowestInLeft = CheckLowestInLeft(row, column, current);
 
         // if lowest in left - visible
@@ -185,27 +185,27 @@ class TreeFinder
             AvailableTrees++;
             return true;
         }
-        
+
         bool isLowestInRight = CheckLowestInRight(row, column, current);
-        
+
         // if lowest in right - visible
         if (isLowestInRight)
         {
             AvailableTrees++;
             return true;
         }
-        
+
         bool isLowestInTop = CheckLowestInTop(row, column, current);
-        
+
         // if lowest in top - visible
         if (isLowestInTop)
         {
             AvailableTrees++;
             return true;
         }
-        
+
         bool isLowestInBottom = CheckLowestInBottom(row, column, current);
-        
+
         // if lowest in bottom - visible
         if (isLowestInBottom)
         {
