@@ -95,9 +95,10 @@ class TreeFinder
         {
             for (int i = column - 1; i >= 0; i--) // all previous columns
             {
-                if (int.Parse(Trees[row, i]) >= current) // if previous column is bigger or equal - not visible
+                if (int.Parse(Trees[row, i]) >= current) // if any previous column is bigger or equal - not visible
                 {
                     isLowestInLeft = false;
+                    break; // end loop if not visible
                 }
             }
         }
@@ -115,9 +116,10 @@ class TreeFinder
         {
             for (int i = column + 1; i < Trees.GetLength(1); i++) // all next columns
             {
-                if (int.Parse(Trees[row, i]) >= current) // if next column is bigger or equal - not visible
+                if (int.Parse(Trees[row, i]) >= current) // if any next column is bigger or equal - not visible
                 {
                     isLowestInRight = false;
+                    break; // end loop if not visible
                 }
             }
         }
@@ -135,9 +137,10 @@ class TreeFinder
         {
             for (int i = row - 1; i >= 0; i--) // all previous rows
             {
-                if (int.Parse(Trees[i, column]) >= current) // if previous row is bigger or equal - not visible
+                if (int.Parse(Trees[i, column]) >= current) // if any previous row is bigger or equal - not visible
                 {
                     isLowestInTop = false;
+                    break; // end loop if not visible
                 }
             }
         }
@@ -155,9 +158,10 @@ class TreeFinder
         {
             for (int i = row + 1; i < Trees.GetLength(0); i++) // all next rows
             {
-                if (int.Parse(Trees[i, column]) >= current) // if next row is bigger or equal - not visible
+                if (int.Parse(Trees[i, column]) >= current) // if any next row is bigger or equal - not visible
                 {
                     isLowestInBottom = false;
+                    break; // end loop if not visible
                 }
             }
         }
@@ -171,22 +175,45 @@ class TreeFinder
         int current = int.Parse(Trees[row, column]);
 
         // check if lowest in left, right, top, bottom
+        
+        
         bool isLowestInLeft = CheckLowestInLeft(row, column, current);
-        bool isLowestInRight = CheckLowestInRight(row, column, current);
-        bool isLowestInTop = CheckLowestInTop(row, column, current);
-        bool isLowestInBottom = CheckLowestInBottom(row, column, current);
 
-
-        // if lowest in left, right, top, bottom - available
-        bool isAvailable = isLowestInLeft || isLowestInRight || isLowestInTop || isLowestInBottom;
-
-        // if available - increment available trees
-        if (isAvailable)
+        // if lowest in left - visible
+        if (isLowestInLeft)
         {
             AvailableTrees++;
+            return true;
+        }
+        
+        bool isLowestInRight = CheckLowestInRight(row, column, current);
+        
+        // if lowest in right - visible
+        if (isLowestInRight)
+        {
+            AvailableTrees++;
+            return true;
+        }
+        
+        bool isLowestInTop = CheckLowestInTop(row, column, current);
+        
+        // if lowest in top - visible
+        if (isLowestInTop)
+        {
+            AvailableTrees++;
+            return true;
+        }
+        
+        bool isLowestInBottom = CheckLowestInBottom(row, column, current);
+        
+        // if lowest in bottom - visible
+        if (isLowestInBottom)
+        {
+            AvailableTrees++;
+            return true;
         }
 
-        // return is available
-        return isAvailable;
+        // if not lowest in left, right, top, bottom - not visible
+        return false;
     }
 }
