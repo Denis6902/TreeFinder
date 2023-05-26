@@ -27,7 +27,19 @@ class TreeFinder
     }
 
     // get array length (square root of data length)
-    private int GetArrayLength(string data) => (int) Math.Round(Math.Sqrt(data.Length));
+    private int GetArrayLength(string data)
+    {
+        string length = Math.Sqrt(data.Length).ToString();
+
+        // no , means integer
+        if (!length.Contains(","))
+        {
+            return int.Parse(length.ToString());
+        }
+
+        // , means double, so take only first number and add 1 (like 3,3333 -> 3 + 1 = 4)
+        return int.Parse(length[0].ToString()) + 1;
+    }
 
     // make visible some text
     private void MakeVisible(string visibleText)
