@@ -27,7 +27,7 @@ class TreeFinder
     }
     
     // write results
-    public void WriteResults() => Console.WriteLine($"Celkově viditelných: {AvailableTrees}, na okraji {GetCornerTrees()} a ve vnitř {AvailableTrees - (GetCornerTrees())}");
+    public void WriteResults() => Console.WriteLine($"Celkově viditelných stromů je {AvailableTrees}, na okraji {GetCornerTrees()} a uvnitř {AvailableTrees - (GetCornerTrees())}");
     
     // get corner trees, 
     private int GetCornerTrees()
@@ -44,7 +44,7 @@ class TreeFinder
         // no , means integer
         if (!length.Contains(","))
         {
-            return int.Parse(length.ToString());
+            return int.Parse(length);
         }
 
         // , means double, so take only first number and add 1 (like 3,3333 -> 3 + 1 = 4)
