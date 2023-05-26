@@ -26,7 +26,15 @@ class TreeFinder
         }
     }
     
-    public void WriteResults() => Console.WriteLine($"Celkově viditelných: {AvailableTrees}, na okraji {GetArrayLength(Data)} a ve vnitřku {AvailableTrees - GetArrayLength(Data)}");
+    // write results
+    public void WriteResults() => Console.WriteLine($"Celkově viditelných: {AvailableTrees}, na okraji {GetCornerTrees()} a ve vnitř {AvailableTrees - (GetCornerTrees())}");
+    
+    // get corner trees, 
+    private int GetCornerTrees()
+    {
+        int withoutCorners = (GetArrayLength(Data) - 2) * 4; // 4 sides without corners
+        return withoutCorners + 4; // 4 corners
+    }
 
     // get array length (square root of data length)
     private int GetArrayLength(string data)
